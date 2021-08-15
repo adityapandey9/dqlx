@@ -43,7 +43,7 @@ You can find the documentation here: https://fenos.github.io/dqlx
 
 ### Installation
 ```bash
-go get github.com/fenos/dqlx
+go get github.com/adityapandey9/dqlx
 ```
 
 ### Quick Overview
