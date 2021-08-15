@@ -247,7 +247,7 @@ func escapeSpecialChars(predicate string) string {
 }
 
 func parsePredicate(predicateName string) (predicate string, alias string, directive string) {
-	predicate = strings.TrimSpace(predicateName)
+	// predicate = strings.TrimSpace(predicateName)
 
 	// Directive
 	predicateParts := strings.Split(predicateName, "@")

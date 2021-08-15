@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	dql "github.com/fenos/dqlx"
+	dql "github.com/adityapandey9/dqlx"
 	"github.com/stretchr/testify/require"
 )
 

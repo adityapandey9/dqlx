@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/dgraph-io/dgo/v200"
+	"github.com/dgraph-io/dgo/v210"
 )
 
 // QueryBuilder represents the public API for building
@@ -176,9 +176,7 @@ func (builder QueryBuilder) OrderDesc(predicate interface{}) QueryBuilder {
 // Filter requests filters for this query
 // Example: dqlx.Query(...).Filter(dqlx.Eq{...}, dqlx.Gt{...})
 func (builder QueryBuilder) Filter(filters ...DQLizer) QueryBuilder {
-	for _, filter := range filters {
-		builder.rootEdge.Filters = append(builder.rootEdge.Filters, filter)
-	}
+	builder.rootEdge.Filters = append(builder.rootEdge.Filters, filters...)
 	return builder
 }
 

@@ -3,8 +3,8 @@ package dqlx
 import (
 	"context"
 
-	"github.com/dgraph-io/dgo/v200"
-	"github.com/dgraph-io/dgo/v200/protos/api"
+	"github.com/dgraph-io/dgo/v210"
+	"github.com/dgraph-io/dgo/v210/protos/api"
 	"google.golang.org/grpc"
 )
 
@@ -122,7 +122,7 @@ func (dqlx *dqlx) NewTxn() *dgo.Txn {
 
 // NewReadOnlyTxn creates a new read-only transaction
 func (dqlx *dqlx) NewReadOnlyTxn() *dgo.Txn {
-	return dqlx.NewReadOnlyTxn()
+	return dqlx.dgraph.NewReadOnlyTxn()
 }
 
 // GetDgraph returns the dgraph client

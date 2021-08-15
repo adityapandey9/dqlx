@@ -3,13 +3,15 @@ module github.com/adityapandey9/dqlx
 go 1.16
 
 require (
-	github.com/dgraph-io/dgo/v200 v200.0.0-20210401091508-95bfd74de60e
-	github.com/google/go-cmp v0.5.5 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dgraph-io/dgo/v210 v210.0.0-20210421093152-78a2fece3ebd
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/stretchr/testify v1.7.0
-	golang.org/x/net v0.0.0-20210428140749-89ef3d95e781 // indirect
-	golang.org/x/sys v0.0.0-20210426230700-d19ff857e887 // indirect
-	google.golang.org/genproto v0.0.0-20210427215850-f767ed18ee4d // indirect
-	google.golang.org/grpc v1.37.0
+	golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d // indirect
+	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
+	golang.org/x/text v0.3.7 // indirect
+	google.golang.org/genproto v0.0.0-20210813162853-db860fec028c // indirect
+	google.golang.org/grpc v1.40.0
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )

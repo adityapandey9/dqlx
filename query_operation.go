@@ -30,7 +30,8 @@ func QueriesToDQL(queries ...QueryBuilder) (query string, args map[string]string
 
 // ToDQL returns the DQL statement for 1 or more queries
 func (grammar queryOperation) ToDQL() (query string, variables map[string]string, err error) {
-	variables = map[string]string{}
+	// variables = map[string]string{}
+
 	blocNames := make([]string, len(grammar.operations))
 
 	for index, block := range grammar.operations {

@@ -677,7 +677,8 @@ func OrderDesc(predicate interface{}) DQLizer {
 
 // ToDQL returns the DQL statement for the 'order' expression
 func (orderBy orderBy) ToDQL() (query string, args []interface{}, err error) {
-	predicate := orderBy.Predicate
+	// predicate := orderBy.Predicate
+	var predicate interface{}
 
 	switch val := orderBy.Predicate.(type) {
 	case filterExpr:
@@ -775,7 +776,7 @@ func parseValue(value interface{}) (valuePlaceholder string, args []interface{},
 
 	switch castType := value.(type) {
 	case RawExpression:
-		valuePlaceholder = fmt.Sprintf("%s", castType.Val)
+		valuePlaceholder = castType.Val
 	default:
 		args = append(args, value)
 		valuePlaceholder = symbolValuePlaceholder
