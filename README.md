@@ -1,4 +1,4 @@
-# dqlx
+# dqlx (Note: It is Fork I did this because original onces has some problem.)
 
 dqlx is a fully featured [DGraph](https://github.com/dgraph-io/dgraph) Schema and Query Builder for Go.
 It aims to simplify the interaction with the awesome Dgraph database allowing you to fluently compose any queries and mutations of any complexity. It also comes with a rich Schema builder to easily develop and maintain your Dgraph schema.
