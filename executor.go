@@ -2,10 +2,11 @@ package dqlx
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"reflect"
 	"time"
+
+	"github.com/goccy/go-json"
 
 	"github.com/dgraph-io/dgo/v210"
 	"github.com/dgraph-io/dgo/v210/protos/api"

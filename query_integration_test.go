@@ -3,8 +3,9 @@ package dqlx_test
 import (
 	"context"
 	_ "embed"
-	"encoding/json"
 	"testing"
+
+	"github.com/goccy/go-json"
 
 	"github.com/adityapandey9/dqlx/testdata"
 
