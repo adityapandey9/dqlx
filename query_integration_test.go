@@ -3,8 +3,11 @@ package dqlx_test
 import (
 	"context"
 	_ "embed"
-	"encoding/json"
+
+	// "encoding/json"
 	"testing"
+
+	jsoniter "github.com/json-iterator/go"
 
 	// "github.com/goccy/go-json"
 
@@ -42,6 +45,8 @@ func (suite *QueryIntegrationTest) SetupTest() {
 	require.NoError(suite.T(), err)
 
 	var structure interface{}
+	var json = jsoniter.ConfigCompatibleWithStandardLibrary
+
 	err = json.Unmarshal([]byte(data), &structure)
 	require.NoError(suite.T(), err)
 

@@ -2,12 +2,13 @@ package dqlx
 
 import (
 	"context"
-	"encoding/json"
+	// "encoding/json"
 	"errors"
 	"reflect"
 	"time"
 
 	// "github.com/goccy/go-json"
+	jsoniter "github.com/json-iterator/go"
 
 	"github.com/dgraph-io/dgo/v210"
 	"github.com/dgraph-io/dgo/v210/protos/api"
@@ -209,6 +210,7 @@ func (executor OperationExecutor) toResponse(resp *api.Response, queries ...Quer
 func mutationData(mutation MutationBuilder) (updateData []byte, deleteData []byte, err error) {
 	var setDataBytes []byte
 	var deleteDataBytes []byte
+	var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 	if mutation.setData != nil {
 		setBytes, err := json.Marshal(mutation.setData)
@@ -259,6 +261,7 @@ type Response struct {
 // into an interface value
 func (response Response) Unmarshal(value interface{}) error {
 	values := map[string]interface{}{}
+	var json = jsoniter.ConfigCompatibleWithStandardLibrary
 	err := json.Unmarshal(response.Raw.Json, &values)
 
 	if err != nil {
