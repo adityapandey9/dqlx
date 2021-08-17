@@ -228,16 +228,21 @@ func mutationData(mutation MutationBuilder) (updateData []byte, deleteData []byt
 	var setDataBytes []byte
 	var deleteDataBytes []byte
 
+	log.Println("mutationData:: 0 ", mutation.setData != nil)
+
 	if mutation.setData != nil {
 		setBytes, err := json.Marshal(mutation.setData)
+		log.Println("Json Margs:: 0000 ", setBytes, err)
 		if err != nil {
 			return nil, nil, err
 		}
 		setDataBytes = setBytes
 	}
+	log.Println("mutationData:: 1 ", mutation.delData != nil)
 
 	if mutation.delData != nil {
 		deleteBytes, err := json.Marshal(mutation.delData)
+		log.Println("Json Margs:: 1111 ", deleteBytes, err)
 		if err != nil {
 			return nil, nil, err
 		}
