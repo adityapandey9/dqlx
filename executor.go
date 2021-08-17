@@ -2,12 +2,13 @@ package dqlx
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"log"
 	"reflect"
 	"time"
 
-	"github.com/goccy/go-json"
+	// "github.com/goccy/go-json"
 
 	"github.com/dgraph-io/dgo/v210"
 	"github.com/dgraph-io/dgo/v210/protos/api"
@@ -231,6 +232,7 @@ func mutationData(mutation MutationBuilder) (updateData []byte, deleteData []byt
 	log.Println("mutationData:: 0 ", mutation.setData != nil)
 
 	if mutation.setData != nil {
+		log.Println("Json Margs:: (0000) ", mutation.setData)
 		setBytes, err := json.Marshal(mutation.setData)
 		log.Println("Json Margs:: 0000 ", setBytes, err)
 		if err != nil {
