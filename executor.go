@@ -114,6 +114,8 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 	for _, mutation := range mutations {
 		var condition string
 
+		log.Println("Enter Mutation Loop:: 0 -- ", mutation.condition != nil)
+
 		if mutation.condition != nil {
 			conditionDql, _, err := mutation.condition.ToDQL()
 			if err != nil {
@@ -121,9 +123,13 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 			}
 			condition = conditionDql
 		}
+		log.Println("\nEnter Mutation Loop:: 1 -- ", mutation.query)
 
 		queries = append(queries, mutation.query)
+		log.Println("\nEnter Mutation Loop:: (2) -- ", len(queries))
+
 		setData, deleteData, err := mutationData(mutation)
+		log.Println("\nEnter Mutation Loop:: 2 -- ", setData, deleteData, err)
 
 		if err != nil {
 			return nil, err
@@ -135,8 +141,11 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 			Cond:       condition,
 			CommitNow:  executor.tnx == nil,
 		}
+		log.Println("\nEnter Mutation Loop:: 3 -- ", mutationRequest)
 
 		mutationRequests = append(mutationRequests, mutationRequest)
+
+		log.Println("\nEnter Mutation Loop:: 4 -- ", len(mutationRequests))
 	}
 	log.Println("Enter:: 1")
 
