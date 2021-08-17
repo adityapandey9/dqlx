@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"log"
 	"reflect"
 	"time"
 
@@ -107,15 +106,11 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 		return nil, err
 	}
 
-	log.Println("Enter:: 0")
-
 	var queries []QueryBuilder
 	var mutationRequests []*api.Mutation
 
 	for _, mutation := range mutations {
 		var condition string
-
-		log.Println("Enter Mutation Loop:: 0 -- ", mutation.condition != nil)
 
 		if mutation.condition != nil {
 			conditionDql, _, err := mutation.condition.ToDQL()
@@ -124,13 +119,10 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 			}
 			condition = conditionDql
 		}
-		log.Println("\nEnter Mutation Loop:: 1 -- ", mutation.query)
 
 		queries = append(queries, mutation.query)
-		log.Println("\nEnter Mutation Loop:: (2) -- ", len(queries))
 
 		setData, deleteData, err := mutationData(mutation)
-		log.Println("\nEnter Mutation Loop:: 2 -- ", setData, deleteData, err)
 
 		if err != nil {
 			return nil, err
@@ -142,20 +134,15 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 			Cond:       condition,
 			CommitNow:  executor.tnx == nil,
 		}
-		log.Println("\nEnter Mutation Loop:: 3 -- ", mutationRequest)
 
 		mutationRequests = append(mutationRequests, mutationRequest)
-
-		log.Println("\nEnter Mutation Loop:: 4 -- ", len(mutationRequests))
 	}
-	log.Println("Enter:: 1")
 
 	query, variables, err := QueriesToDQL(queries...)
 
 	if err != nil {
 		return nil, err
 	}
-	log.Println("Enter:: 2")
 
 	if IsEmptyQuery(query) {
 		query = ""
@@ -171,13 +158,11 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 		CommitNow:  executor.tnx == nil,
 		RespFormat: api.Request_JSON,
 	}
-	log.Println("Enter:: 3")
 
 	tx := executor.getTnx()
 	defer tx.Discard(ctx)
 
 	resp, err := tx.Do(ctx, request)
-	log.Println("\n\nEnter:: 4", resp, "\n\nEE:: ", err)
 
 	if err != nil {
 		return nil, err
@@ -195,15 +180,12 @@ func (executor OperationExecutor) toResponse(resp *api.Response, queries ...Quer
 		dataPathKey = ""
 	}
 
-	log.Println("Response:: 0")
-
 	queryResponse := &Response{
 		dataKeyPath: dataPathKey,
 		Raw:         resp,
 	}
 
 	queries = ensureUniqueQueryNames(queries)
-	log.Println("Response:: 1")
 
 	for _, queryBuilder := range queries {
 		if queryBuilder.unmarshalInto == nil {
@@ -220,7 +202,6 @@ func (executor OperationExecutor) toResponse(resp *api.Response, queries ...Quer
 			return nil, err
 		}
 	}
-	log.Println("Response:: 2")
 
 	return queryResponse, nil
 }
@@ -229,22 +210,16 @@ func mutationData(mutation MutationBuilder) (updateData []byte, deleteData []byt
 	var setDataBytes []byte
 	var deleteDataBytes []byte
 
-	log.Println("mutationData:: 0 ", mutation.setData != nil)
-
 	if mutation.setData != nil {
-		log.Println("Json Margs:: (0000) ", mutation.setData)
 		setBytes, err := json.Marshal(mutation.setData)
-		log.Println("Json Margs:: 0000 ", setBytes, err)
 		if err != nil {
 			return nil, nil, err
 		}
 		setDataBytes = setBytes
 	}
-	log.Println("mutationData:: 1 ", mutation.delData != nil)
 
 	if mutation.delData != nil {
 		deleteBytes, err := json.Marshal(mutation.delData)
-		log.Println("Json Margs:: 1111 ", deleteBytes, err)
 		if err != nil {
 			return nil, nil, err
 		}

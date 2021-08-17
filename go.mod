@@ -5,7 +5,6 @@ go 1.16
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgraph-io/dgo/v210 v210.0.0-20210421093152-78a2fece3ebd
-	github.com/goccy/go-json v0.7.6 // indirect
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/stretchr/testify v1.7.0
