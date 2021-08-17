@@ -3,6 +3,7 @@ package dqlx
 import (
 	"context"
 	"errors"
+	"log"
 	"reflect"
 	"time"
 
@@ -105,6 +106,8 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 		return nil, err
 	}
 
+	log.Println("Enter:: 0")
+
 	var queries []QueryBuilder
 	var mutationRequests []*api.Mutation
 
@@ -135,12 +138,14 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 
 		mutationRequests = append(mutationRequests, mutationRequest)
 	}
+	log.Println("Enter:: 1")
 
 	query, variables, err := QueriesToDQL(queries...)
 
 	if err != nil {
 		return nil, err
 	}
+	log.Println("Enter:: 2")
 
 	if IsEmptyQuery(query) {
 		query = ""
@@ -156,11 +161,13 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 		CommitNow:  executor.tnx == nil,
 		RespFormat: api.Request_JSON,
 	}
+	log.Println("Enter:: 3")
 
 	tx := executor.getTnx()
 	defer tx.Discard(ctx)
 
 	resp, err := tx.Do(ctx, request)
+	log.Println("\n\nEnter:: 4", resp, "\n\nEE:: ", err)
 
 	if err != nil {
 		return nil, err
@@ -178,12 +185,15 @@ func (executor OperationExecutor) toResponse(resp *api.Response, queries ...Quer
 		dataPathKey = ""
 	}
 
+	log.Println("Response:: 0")
+
 	queryResponse := &Response{
 		dataKeyPath: dataPathKey,
 		Raw:         resp,
 	}
 
 	queries = ensureUniqueQueryNames(queries)
+	log.Println("Response:: 1")
 
 	for _, queryBuilder := range queries {
 		if queryBuilder.unmarshalInto == nil {
@@ -200,6 +210,7 @@ func (executor OperationExecutor) toResponse(resp *api.Response, queries ...Quer
 			return nil, err
 		}
 	}
+	log.Println("Response:: 2")
 
 	return queryResponse, nil
 }
