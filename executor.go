@@ -77,6 +77,8 @@ func (executor OperationExecutor) ExecuteQueries(ctx context.Context, queries ..
 	}
 
 	query, variables, err := QueriesToDQL(queries...)
+	log.Println("Mutation :: ", query, variables, err)
+
 	if err != nil {
 		return nil, err
 	}
