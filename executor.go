@@ -154,7 +154,7 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 		variables = nil
 	}
 
-	log.Println("Mutation :: ", query, variables)
+	log.Printf("\n\nMutation :: %+v\n\n", mutationRequests)
 
 	request := &api.Request{
 		Query:      query,
