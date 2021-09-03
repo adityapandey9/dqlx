@@ -111,36 +111,10 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 		return nil, err
 	}
 
-	var queries []QueryBuilder
-	var mutationRequests []*api.Mutation
+	mutationRequests, queries, err := AppendMutation(executor, mutations...)
 
-	for _, mutation := range mutations {
-		var condition string
-
-		if mutation.condition != nil {
-			conditionDql, _, err := mutation.condition.ToDQL()
-			if err != nil {
-				return nil, err
-			}
-			condition = conditionDql
-		}
-
-		queries = append(queries, mutation.query)
-
-		setData, deleteData, err := mutationData(mutation)
-
-		if err != nil {
-			return nil, err
-		}
-
-		mutationRequest := &api.Mutation{
-			SetJson:    setData,
-			DeleteJson: deleteData,
-			Cond:       condition,
-			CommitNow:  executor.tnx == nil,
-		}
-
-		mutationRequests = append(mutationRequests, mutationRequest)
+	if err != nil {
+		return nil, err
 	}
 
 	query, variables, err := QueriesToDQL(queries...)
