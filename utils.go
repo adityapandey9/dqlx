@@ -25,7 +25,7 @@ func AppendMutation(executor OperationExecutor, mutations ...MutationBuilder) ([
 
 		setData, deleteData, err := mutationData(mutation)
 
-		log.Println("Set Dele:: ", setData, deleteData, err)
+		log.Println("Set Dele:: ", string(setData), string(deleteData), err)
 
 		if err != nil {
 			return nil, nil, err
