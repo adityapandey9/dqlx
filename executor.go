@@ -148,7 +148,7 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 		return nil, err
 	}
 
-	log.Printf("\n\n\nBytes:: %+v\n\n\n", setBytes)
+	log.Printf("\n\n\nBytes:: %+v\n\n\n", string(setBytes))
 
 	tx := executor.getTnx()
 	defer tx.Discard(ctx)
