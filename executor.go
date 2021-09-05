@@ -140,6 +140,16 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 		RespFormat: api.Request_JSON,
 	}
 
+	var json = jsoniter.ConfigCompatibleWithStandardLibrary
+
+	setBytes, err := json.Marshal(request)
+
+	if err != nil {
+		return nil, err
+	}
+
+	log.Printf("\n\n\nBytes:: %+v\n\n\n", setBytes)
+
 	tx := executor.getTnx()
 	defer tx.Discard(ctx)
 
