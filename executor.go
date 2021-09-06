@@ -123,7 +123,7 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 		return nil, err
 	}
 
-	if IsEmptyQuery(query) {
+	if IsEmptyRootQuery(query) {
 		query = ""
 		variables = nil
 	}
