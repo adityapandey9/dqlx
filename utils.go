@@ -21,6 +21,8 @@ func AppendMutation(executor OperationExecutor, mutations ...MutationBuilder) ([
 			condition = conditionDql
 		}
 
+		log.Printf("\n\nQuering::: %+v\n\n", mutation.query)
+
 		queries = append(queries, mutation.query)
 
 		setData, deleteData, err := mutationData(mutation)
