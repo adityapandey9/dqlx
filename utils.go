@@ -23,7 +23,11 @@ func AppendMutation(executor OperationExecutor, mutations ...MutationBuilder) ([
 
 		log.Printf("\n\nQuering::: %+v\n\n", mutation.query)
 
-		queries = append(queries, mutation.query)
+		if query, _, err := mutation.query.ToDQL(); !IsEmptyQuery(query) && err == nil {
+			log.Println("\n\nAdding Query::: ", IsEmptyQuery(query), err, "\n\n <endAdding>")
+
+			queries = append(queries, mutation.query)
+		}
 
 		setData, deleteData, err := mutationData(mutation)
 
