@@ -314,5 +314,5 @@ func (builder QueryBuilder) addEdgeFn(query QueryBuilder, fn func(builder QueryB
 
 // IsEmptyQuery determine if a given query is an empty generated query
 func IsEmptyQuery(query string) bool {
-	return query == "query () {  {  } }"
+	return query == "query () {  }"
 }
