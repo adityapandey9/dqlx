@@ -1,8 +1,6 @@
 package dqlx
 
 import (
-	"log"
-
 	"github.com/dgraph-io/dgo/v210/protos/api"
 )
 
@@ -21,17 +19,17 @@ func AppendMutation(executor OperationExecutor, mutations ...MutationBuilder) ([
 			condition = conditionDql
 		}
 
-		log.Printf("\n\nQuering::: %+v\n\n", mutation.query)
+		// log.Printf("\n\nQuering::: %+v\n\n", mutation.query)
 
 		if query, _, err := mutation.query.ToDQL(); !IsEmptyQuery(query) && err == nil {
-			log.Println("\n\nAdding Query::: ", IsEmptyQuery(query), err, "\n\n <endAdding>")
+			// log.Println("\n\nAdding Query::: ", IsEmptyQuery(query), err, "\n\n <endAdding>")
 
 			queries = append(queries, mutation.query)
 		}
 
 		setData, deleteData, err := mutationData(mutation)
 
-		log.Println("Set Dele:: ", string(setData), string(deleteData), err)
+		// log.Println("Set Dele:: ", string(setData), string(deleteData), err)
 
 		if err != nil {
 			return nil, nil, err
