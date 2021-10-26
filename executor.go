@@ -2,7 +2,6 @@ package dqlx
 
 import (
 	"context"
-	"log"
 
 	// "encoding/json"
 	"errors"
@@ -77,7 +76,7 @@ func (executor OperationExecutor) ExecuteQueries(ctx context.Context, queries ..
 	}
 
 	query, variables, err := QueriesToDQL(queries...)
-	log.Println("Query :: ", query, variables, err)
+	// log.Println("Query :: ", query, variables, err)
 
 	if err != nil {
 		return nil, err
@@ -128,7 +127,7 @@ func (executor OperationExecutor) ExecuteMutations(ctx context.Context, mutation
 		variables = nil
 	}
 
-	log.Printf("\n\nMutation :: %+v\n\n --Query:: -- %+v\n\n", mutationRequests, query)
+	// log.Printf("\n\nMutation :: %+v\n\n --Query:: -- %+v\n\n", mutationRequests, query)
 
 	request := &api.Request{
 		Query:      query,
