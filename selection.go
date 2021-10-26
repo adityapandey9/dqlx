@@ -81,7 +81,9 @@ func (fields nodeAttributes) ToDQL() (query string, args []interface{}, err erro
 				return "", nil, err
 			}
 
-			args = append(args, computedArgs)
+			if !isRawExpress(requestField) {
+				args = append(args, computedArgs)
+			}
 			selectedFields = append(selectedFields, computedDql)
 		case string:
 			fieldString := parsePredicates(requestField)
@@ -92,6 +94,14 @@ func (fields nodeAttributes) ToDQL() (query string, args []interface{}, err erro
 	}
 
 	return strings.Join(selectedFields, " "), args, nil
+}
+
+func isRawExpress(val interface{}) bool {
+	switch val.(type) {
+	case RawExpression:
+		return true
+	}
+	return false
 }
 
 type aliasField struct {
