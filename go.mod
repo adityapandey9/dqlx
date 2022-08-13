@@ -1,6 +1,6 @@
 module github.com/adityapandey9/dqlx
 
-go 1.16
+go 1.17
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
